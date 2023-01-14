@@ -1,7 +1,8 @@
 #pragma once
 
-#define TAPPING_TERM 200
+#define TAPPING_TERM 400
 // #define PERMISSIVE_HOLD
 #define IGNORE_MOD_TAP_INTERRUPT
 // #define RETRO_TAPPING
+#define DYNAMIC_TAPPING_TERM_INCREMENT 20
 
