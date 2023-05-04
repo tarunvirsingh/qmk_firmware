@@ -104,6 +104,14 @@ bool process_record_keychron(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return false;  // Skip all further processing of this key
+        case TVSUSER:
+            if (record->event.pressed) {
+                // when keycode TVSUSER is pressed
+                SEND_STRING("tarunvirsingh");
+            } else {
+                // when keycode TVSUSER is released
+            }
+            return true;
         default:
             return true;  // Process all other keycodes normally
     }

@@ -22,6 +22,7 @@
  * Flash the new binary on to the keyboard using QMK toolbox
  * Reset EEPROM using fn1+option (I.e. press EE_CLR from _FN1 layer)
  * The keyboard is ready to use.
+ * You may now press fn1+tab to turn off the lighting.
  */
 
 #include QMK_KEYBOARD_H
@@ -48,18 +49,20 @@ enum layers {
 #define NUM_F LT(_NUM, KC_F)
 #define SCS_G LT(_SCS, KC_G)
 #define NAV_SPC LT(_NAV, KC_SPC)
+// Note that LM (which enables a layer with modifiers on, can not be achieved with a tap
+// To do that, you add an LT, and specify one convenient key on that layer as the mod
+// Eg. tap into sym layer with D, and use F as cmd.
+// Or the other option is to use the cmd+sft that I use in the _SCS layer
 
 // Right-hand home row mods
 #define CTL_L RCTL_T(KC_L)
 
 // Shortcuts
+#define CS_I LSG(KC_I)
 #define CS_M LSG(KC_M)
 #define CS_P LSG(KC_P)
 #define CS_LCBR LSG(KC_LBRC)
 #define CS_RCBR LSG(KC_RBRC)
-#define C_GRV G(KC_GRV)
-#define C_TAB G(KC_TAB)
-
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [MAC_BASE] = LAYOUT_ansi_61(
@@ -92,8 +95,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_SYM] = LAYOUT_ansi_61(
         _______, _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______,  _______,  _______,
-        _______, _______,  _______, _______, _______, _______, KC_TILD, KC_AMPR, KC_ASTR, _______, KC_PIPE,  _______,  _______,  _______,
-        _______, _______,  _______, _______, _______, _______, KC_UNDS, KC_DLR,  KC_PERC, KC_CIRC, KC_BSLS,  _______,            _______,
+        _______, _______,  _______, _______, _______, _______, KC_TILD, KC_AMPR, KC_ASTR, KC_TAB,  KC_PIPE,  _______,  _______,  _______,
+        _______, _______,  _______, _______, KC_LCMD, _______, KC_UNDS, KC_DLR,  KC_PERC, KC_CIRC, KC_BSLS,  _______,            _______,
         _______,           _______, _______, _______, _______, _______, KC_GRV,  KC_EXLM, KC_AT,   KC_HASH,  _______,            _______,
         _______, _______,  _______,                            _______,                            _______,  _______,  _______,  _______),
 
@@ -106,15 +109,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_SCS] = LAYOUT_ansi_61(
         _______, _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______,  _______,  _______,
-        _______, _______,  _______, _______, _______, _______, _______, CS_LCBR, CS_RCBR, _______, CS_P,     _______,  _______,  _______,
-        _______, _______,  _______, _______, _______, _______, _______, _______, _______, C_TAB,   C_GRV,   _______,            _______,
+        _______, _______,  _______, _______, _______, _______, _______, TVSUSER, CS_I,    _______, CS_P,     _______,  _______,  _______,
+        _______, _______,  _______, _______, _______, _______, CS_LCBR, _______, _______, CS_RCBR, _______,  _______,            _______,
         _______,           _______, _______, _______, _______, _______, _______, CS_M,    _______, _______,  _______,            _______,
         _______, _______,  _______,                            KC_BTN1,                            _______,  _______,  _______,  _______),
 
     [_NAV] = LAYOUT_ansi_61(
         _______, _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______,  _______,  _______,
-        _______, _______,  _______, _______, _______, _______, _______, _______, KC_UP,   _______, _______,  _______,  _______,  _______,
-        _______, _______,  _______, KC_LSFT, KC_LCMD, _______, KC_BSPC, KC_LEFT, KC_DOWN, KC_RGHT, _______,  _______,            _______,
+        _______, _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______,  _______,  _______,
+        _______, _______,  KC_LOPT, KC_LSFT, KC_LCMD, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_BSPC,  _______,            _______,
         _______,           _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______,            _______,
         _______, _______,  _______,                            _______,                            _______,  _______,  _______,  _______)
 
